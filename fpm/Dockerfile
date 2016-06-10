@@ -1,12 +1,33 @@
-FROM php:7.0-fpm
+FROM php:5.6-fpm
 
 MAINTAINER Ivan Klimchuk <ivan@klimchuk.com> (@alroniks)
 
+# install required packages
+RUN apt-get update && \
+    apt-get install -y \
+        libpng12-dev \
+        libjpeg-dev \
+        libxml2-dev \
+        curl \
+        zip \
+        unzip \
+        sudo \
+        git && \
+    rm -rf /var/lib/apt/lists/* 
+
 # install php extensions
-RUN apt-get update && apt-get install -y -y libpng12-dev libjpeg-dev libpq-dev git \
-        && rm -rf /var/lib/apt/lists/* \
-        && docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-        && docker-php-ext-install gd mbstring opcache pdo pdo_mysql pdo_pgsql zip
+RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr && \
+    docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd && \
+    docker-php-ext-configure mysql --with-mysql=mysqlnd && \
+    docker-php-ext-configure mysqli --with-mysqli=mysqlnd && \
+    docker-php-ext-install pdo && \
+    docker-php-ext-install pdo_mysql && \
+    docker-php-ext-install mysqli && \
+    docker-php-ext-install mysql && \
+    docker-php-ext-install gd && \
+    docker-php-ext-install mbstring && \
+    docker-php-ext-install opcache && \
+    docker-php-ext-install zip
 
 # set recommended PHP.ini settings
 # see https://secure.php.net/manual/en/opcache.installation.php
@@ -28,6 +49,8 @@ RUN curl -sS https://getcomposer.org/installer | php
 
 # install dependencies
 RUN php composer.phar install
+
+RUN chown -R www-data:www-data /var/www/html
 
 COPY docker-entrypoint.sh /entrypoint.sh
 
