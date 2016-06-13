@@ -42,13 +42,14 @@ RUN { \
 
 WORKDIR /var/www/html
 
-RUN git clone --progress --verbose https://github.com/oat-sa/package-tao.git -b develop .
+RUN git clone --progress --verbose https://github.com/oat-sa/package-tao.git -b fix/composer_dependencies .
 
 # install composer
 RUN curl -sS https://getcomposer.org/installer | php
 
 # install dependencies
-RUN php composer.phar install
+RUN php composer.phar config --global github-protocols https && \
+    php composer.phar install --prefer-source -vvv
 
 RUN chown -R www-data:www-data /var/www/html
 

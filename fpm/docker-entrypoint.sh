@@ -21,7 +21,7 @@ if [[ "$1" == apache2* ]] || [ "$1" == php-fpm ]; then
 <?php
 $stderr = fopen('php://stderr', 'w');
 list($host, $port) = explode(':', $argv[1], 2);
-$maxTries = 10;
+$maxTries = 3;
 do {
     $mysql = new mysqli($host, $argv[2], $argv[3], '', (int)$port);
     if ($mysql->connect_error) {
@@ -45,14 +45,21 @@ EOPHP
     # auto installation
     : ${TAO_AUTOINSTALL:=0}
 
-    # TAO application settings
-    : ${TAO_MODULE_URL:='http://docker-tao'}
-    : ${TAO_MODULE_MODE:='production'}
-    : ${TAO_USER_LOGIN:='admin'}
-    : ${TAO_USER_PASSWORD:='admin'}
-    : ${TAO_EXTENSIONS:='taoCe'}
-
     if [ "$TAO_AUTOINSTALL" = 1 ]; then
+
+        # TAO application settings
+        : ${TAO_MODULE_MODE:='production'}
+        : ${TAO_USER_LOGIN:='admin'}
+        : ${TAO_USER_PASSWORD:='admin'}
+        : ${TAO_EXTENSIONS:='taoCe'}
+
+        if [ -z "$TAO_MODULE_URL" ]; then
+            echo >&2 'error: missing TAO_MODULE_URL environment variable'
+            echo >&2 '  Set up correct url for this installation. Use ip and port or domain name.'
+            echo >&2 '  Example: -e TAO_MODULE_URL=192.168.99.100:8080?'
+            exit 1
+        fi
+
         echo >&2 "Installing TAO..."
         sudo -u www-data php tao/scripts/taoInstall.php \
             --db_driver "$TAO_DB_DRIVER" \

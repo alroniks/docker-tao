@@ -13,6 +13,9 @@ docker run --name db -p "33060:3306" -e MYSQL_ROOT_PASSWORD=r00t -d mysql:latest
 # run tao instance with linked mysql container
 docker run --name tao --link db:mysql -p 8080:80 -d alroniks/tao:apache
 
+# run tao instance with auto installation param
+docker run --name tao --link db:mysql -p 8080:80 -e TAO_AUTOINSTALL=1 -e TAO_MODULE_URL=http://192.168.99.100:8080 -d alroniks/tao:apache
+
 # get IP of virtual machine
 docker-machine ip default
 
