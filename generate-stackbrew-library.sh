@@ -7,7 +7,7 @@ url='git://github.com/Alroniks/docker-tao'
 
 echo '# maintainer: Ivan Klimchuk <ivan@klimchuk.com> (@alroniks)'
 
-defaultVariant='fpm'
+defaultVariant='apache'
 
 for variant in apache fpm; do
     commit="$(git log -1 --format='format:%H' -- "$variant")"
