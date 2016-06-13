@@ -42,27 +42,31 @@ if (!$mysql->query('CREATE DATABASE IF NOT EXISTS `' . $mysql->real_escape_strin
 $mysql->close();
 EOPHP
 
-    # TODO: automate installation
+    # auto installation
+    : ${TAO_AUTOINSTALL:=0}
+
     # TAO application settings
-    : ${TAO_MODULE_NAMESPACE:='http://docker-tao/first.rdf'}
     : ${TAO_MODULE_URL:='http://docker-tao'}
+    : ${TAO_MODULE_MODE:='debug'}
     : ${TAO_USER_LOGIN:='admin'}
     : ${TAO_USER_PASSWORD:='admin'}
-    : ${TAO_EXTENSIONS:='taoCe'}
+    : ${TAO_EXTENSIONS:='taoCe,taoDevTools'}
 
-    # echo >&2 "Installing TAO..."
-
-    # sudo -u www-data php tao/scripts/taoInstall.php \
-    #         --db_driver "$TAO_DB_DRIVER" \
-    #         --db_host "$TAO_DB_HOST" \
-    #         --db_name "$TAO_DB_NAME" \
-    #         --db_user "$TAO_DB_USER" \
-    #         --db_pass "$TAO_DB_PASSWORD" \
-    #         --module_namespace "$TAO_MODULE_NAMESPACE" \
-    #         --module_url "$TAO_MODULE_URL" \
-    #         --user_login "$TAO_USER_LOGIN" \
-    #         --user_pass "$TAO_USER_PASSWORD" \
-    #         -e "$TAO_EXTENSIONS"
+    if [ "$TAO_AUTOINSTALL" = 1 ]; then
+        echo >&2 "Installing TAO..."
+        sudo -u www-data php tao/scripts/taoInstall.php \
+            --db_driver "$TAO_DB_DRIVER" \
+            --db_host "$TAO_DB_HOST" \
+            --db_name "$TAO_DB_NAME" \
+            --db_user "$TAO_DB_USER" \
+            --db_pass "$TAO_DB_PASSWORD" \
+            --module_url "$TAO_MODULE_URL" \
+            --module_mode "$TAO_MODULE_MODE" \
+            --user_login "$TAO_USER_LOGIN" \
+            --user_pass "$TAO_USER_PASSWORD" \
+            -e "$TAO_EXTENSIONS" \
+            --verbose
+    fi
 fi
 
 exec "$@"
