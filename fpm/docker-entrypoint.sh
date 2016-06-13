@@ -49,19 +49,19 @@ EOPHP
     : ${TAO_USER_PASSWORD:='admin'}
     : ${TAO_EXTENSIONS:='taoCe'}
 
-    echo >&2 "Installing TAO..."
+    # echo >&2 "Installing TAO..."
 
-    sudo -u www-data php tao/scripts/taoInstall.php \
-            --db_driver "$TAO_DB_DRIVER" \
-            --db_host "$TAO_DB_HOST" \
-            --db_name "$TAO_DB_NAME" \
-            --db_user "$TAO_DB_USER" \
-            --db_pass "$TAO_DB_PASSWORD" \
-            --module_namespace "$TAO_MODULE_NAMESPACE" \
-            --module_url "$TAO_MODULE_URL" \
-            --user_login "$TAO_USER_LOGIN" \
-            --user_pass "$TAO_USER_PASSWORD" \
-            -e "$TAO_EXTENSIONS"
+    # sudo -u www-data php tao/scripts/taoInstall.php \
+    #         --db_driver "$TAO_DB_DRIVER" \
+    #         --db_host "$TAO_DB_HOST" \
+    #         --db_name "$TAO_DB_NAME" \
+    #         --db_user "$TAO_DB_USER" \
+    #         --db_pass "$TAO_DB_PASSWORD" \
+    #         --module_namespace "$TAO_MODULE_NAMESPACE" \
+    #         --module_url "$TAO_MODULE_URL" \
+    #         --user_login "$TAO_USER_LOGIN" \
+    #         --user_pass "$TAO_USER_PASSWORD" \
+    #         -e "$TAO_EXTENSIONS"
 fi
 
 exec "$@"

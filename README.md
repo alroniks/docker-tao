@@ -4,6 +4,9 @@ Docker container for run taotesting application
 
 ## Docker Compose Config
 
+// apache
+// nginx
+
 ```
 web:
   image: tao
@@ -20,7 +23,7 @@ web:
     TAO_MODULE_NAMESPACE: http://sample/first.rdf
     TAO_MODULE_URL: http://myurl
     TAO_USER_LOGIN: admin
-    TAO_USER_PASS: admin
+    TAO_USER_PASSWORD: admin
     TAO_EXTENSIONS: taoCe
 db:
   image: mysql

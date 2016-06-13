@@ -7,8 +7,6 @@ RUN apt-get update && \
     apt-get install -y \
         libpng12-dev \
         libjpeg-dev \
-        libxml2-dev \
-        curl \
         zip \
         unzip \
         sudo \
