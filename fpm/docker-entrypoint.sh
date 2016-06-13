@@ -21,7 +21,7 @@ if [[ "$1" == apache2* ]] || [ "$1" == php-fpm ]; then
 <?php
 $stderr = fopen('php://stderr', 'w');
 list($host, $port) = explode(':', $argv[1], 2);
-$maxTries = 3;
+$maxTries = 10;
 do {
     $mysql = new mysqli($host, $argv[2], $argv[3], '', (int)$port);
     if ($mysql->connect_error) {

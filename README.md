@@ -33,32 +33,37 @@ TBD
 
 ### apache
 
+You can also add this config in file `docker-composer.yml` into folder `package-tao` and run `docker-compose up -d`. 
+
+If you want automatically install application, add to environment section param `TAO_AUTOINSTALL: 1` and `TAO_MODULE_URL: http://192.168.99.100:8000` with correct IP and port.
+
 ```
 version: '2'
 services:
   db:
     image: mysql:latest
     ports:
-        - 33060:3306
+      - 33060:3306
     environment:
-        MYSQL_ROOT_PASSWORD: r00t
+      MYSQL_ROOT_PASSWORD: r00t
+      MYSQL_USER: tao
+      MYSQL_PASSWORD: tao
+      MYSQL_DATABASE: tao
   tao:
     image: alroniks/tao:apache
-    depends_on:
-      - db
     links:
       - db:mysql
     ports:
       - 8000:80
-#    volumes:
-#      - .:/var/www/html
+    volumes:
+      - .:/var/www/html
     environment:
       TAO_DB_DRIVER: pdo_mysql
-      TAO_DB_HOST: mysql
       TAO_DB_NAME: tao
-      TAO_DB_USER: root
-      TAO_DB_PASSWORD: r00t
+      TAO_DB_USER: tao
+      TAO_DB_PASSWORD: tao
       TAO_AUTOINSTALL: 1
+      TAO_MODULE_URL: http://192.168.99.100:8000
 ```
 
 ### nginx

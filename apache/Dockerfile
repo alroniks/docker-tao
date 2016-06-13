@@ -4,6 +4,9 @@ MAINTAINER Ivan Klimchuk <ivan@klimchuk.com> (@alroniks)
 
 RUN a2enmod rewrite expires
 
+RUN usermod -u 1000 www-data
+RUN usermod -G staff www-data
+
 # install required packages
 RUN apt-get update && \
     apt-get install -y \
