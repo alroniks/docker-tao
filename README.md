@@ -30,3 +30,14 @@ open http://<your-machine-ip>
 **Note!** Mysql username and password stored in `tao/docker-compose.yml` config file. 
 
 **Note!** Mysql host during the installation should be defined as `db:mysql`.
+
+## Development
+
+For using this environment for development you should to copy `docker-composer.yaml` and `nginx.conf` into folder with your sources of TAO and to add following lines to your `docker-compose.yml` after `image: alroniks/tao:latest`:
+
+```
+volumes:
+  - .:/var/www/html
+```
+
+Also you can define own domain for your installation. Yoy should edit your /etc/hosts file and map your local domain to 0.0.0.0 IP address then add domain name into nginx.conf and run `docker-compose up`.

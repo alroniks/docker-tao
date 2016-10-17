@@ -40,6 +40,10 @@ RUN curl -o tao.zip -SL http://releases.taotesting.com/TAO_${TAO_VERSION}.zip \
   && rm tao.zip \
   && chown -R www-data:www-data /usr/src/tao
 
+RUN groupmod -g 1000 www-data
+RUN usermod -u 1000 www-data
+RUN usermod -g staff www-data
+
 COPY docker-entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
