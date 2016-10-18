@@ -2,6 +2,9 @@ FROM php:7-fpm
 
 MAINTAINER Ivan Klimchuk <ivan@klimchuk.com> (@alroniks)
 
+RUN usermod -u 1000 www-data
+RUN usermod -G staff www-data
+
 RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev zip unzip sudo wget
 
 RUN rm -rf /var/lib/apt/lists/* 
@@ -26,7 +29,7 @@ RUN { \
         echo 'opcache.fast_shutdown=1'; \
         echo 'opcache.enable_cli=1'; \
         echo 'opcache.load_comments=1'; \
-    } > /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
+    } >> /usr/local/etc/php/conf.d/docker-php-ext-opcache.ini
 
 VOLUME /var/www/html
 
@@ -39,10 +42,6 @@ RUN curl -o tao.zip -SL http://releases.taotesting.com/TAO_${TAO_VERSION}.zip \
   && mv /usr/src/TAO_${TAO_VERSION} /usr/src/tao \
   && rm tao.zip \
   && chown -R www-data:www-data /usr/src/tao
-
-RUN groupmod -g 1000 www-data
-RUN usermod -u 1000 www-data
-RUN usermod -g staff www-data
 
 COPY docker-entrypoint.sh /entrypoint.sh
 
