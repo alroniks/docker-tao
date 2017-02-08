@@ -33,8 +33,8 @@ RUN { \
 
 VOLUME /var/www/html
 
-ENV TAO_VERSION 3.1.0-RC3_build
-ENV TAO_SHA1 270feb2d0fe4be4278d28c0954ff08ea53d828ed
+ENV TAO_VERSION 3.1.0-RC7_build
+ENV TAO_SHA1 9d2de63a9a63538ae1ebe57b0d6023759cb08041
 
 RUN curl -o tao.zip -SL http://releases.taotesting.com/TAO_${TAO_VERSION}.zip \
   && echo "$TAO_SHA1 *tao.zip" | sha1sum -c - \
