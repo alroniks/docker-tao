@@ -23,6 +23,7 @@ RUN docker-php-ext-install pdo && \
     docker-php-ext-install mbstring && \
     docker-php-ext-install opcache && \
     docker-php-ext-install zip && \
+    docker-php-ext-install calendar && \
     docker-php-ext-enable redis
 
 RUN { \
