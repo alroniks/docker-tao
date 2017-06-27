@@ -5,7 +5,7 @@ MAINTAINER Ivan Klimchuk <ivan@klimchuk.com> (@alroniks)
 RUN usermod -u 1000 www-data
 RUN usermod -G staff www-data
 
-RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev zip unzip sudo wget && rm -rf /var/lib/apt/lists/* 
+RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev zip unzip sudo wget sqlite3 libsqlite3-dev && rm -rf /var/lib/apt/lists/* 
 
 RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr
 RUN docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd
