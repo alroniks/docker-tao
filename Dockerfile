@@ -19,6 +19,7 @@ RUN docker-php-ext-install pdo && \
     docker-php-ext-install mysqli && \
     docker-php-ext-install pgsql && \
     docker-php-ext-install pdo_pgsql && \
+    docker-php-ext-install pdo_sqlite && \
     docker-php-ext-install gd && \
     docker-php-ext-install mbstring && \
     docker-php-ext-install opcache && \
