@@ -12,6 +12,7 @@ RUN docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
 RUN docker-php-ext-configure mysqli --with-mysqli=mysqlnd
 
+RUN yes | pecl install igbinary
 RUN yes | pecl install redis
 
 RUN docker-php-ext-install pdo && \
