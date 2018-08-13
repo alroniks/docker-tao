@@ -1,4 +1,4 @@
-FROM php:7-fpm
+FROM php:7.1.20-fpm-stretch
 
 MAINTAINER Ivan Klimchuk <ivan@klimchuk.com> (@alroniks)
 
