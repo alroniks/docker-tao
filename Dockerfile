@@ -1,17 +1,18 @@
-FROM php:7-fpm
+FROM php:7.1.20-fpm-stretch
 
 MAINTAINER Ivan Klimchuk <ivan@klimchuk.com> (@alroniks)
 
 RUN usermod -u 1000 www-data
 RUN usermod -G staff www-data
 
-RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev zip unzip sudo wget sqlite3 libsqlite3-dev && rm -rf /var/lib/apt/lists/* 
+RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libpq-dev zip unzip sudo wget sqlite3 libsqlite3-dev && rm -rf /var/lib/apt/lists/* 
 
 RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr
 RUN docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
 RUN docker-php-ext-configure mysqli --with-mysqli=mysqlnd
 
+RUN yes | pecl install igbinary
 RUN yes | pecl install redis
 
 RUN docker-php-ext-install pdo && \
@@ -50,6 +51,7 @@ RUN curl -o tao.zip -SL http://releases.taotesting.com/TAO_${TAO_VERSION}.zip \
   && chown -R www-data:www-data /usr/src/tao
 
 COPY docker-entrypoint.sh /entrypoint.sh
+COPY php.ini /usr/local/etc/php/
 
 ENTRYPOINT ["/entrypoint.sh"]
 
