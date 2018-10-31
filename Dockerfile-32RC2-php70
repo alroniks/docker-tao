@@ -1,11 +1,11 @@
-FROM php:7-fpm
+FROM php:7.0-fpm
 
 MAINTAINER Ivan Klimchuk <ivan@klimchuk.com> (@alroniks)
 
 RUN usermod -u 1000 www-data
 RUN usermod -G staff www-data
 
-RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev libpq-dev zip unzip sudo wget sqlite3 libsqlite3-dev && rm -rf /var/lib/apt/lists/* 
+RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libpq-dev zip unzip sudo wget sqlite3 libsqlite3-dev && rm -rf /var/lib/apt/lists/* 
 
 RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr
 RUN docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd
@@ -40,8 +40,8 @@ RUN { \
 
 VOLUME /var/www/html
 
-ENV TAO_VERSION 3.1.0-RC7_build
-ENV TAO_SHA1 9d2de63a9a63538ae1ebe57b0d6023759cb08041
+ENV TAO_VERSION 3.2.0-RC2_build
+ENV TAO_SHA1 2e8f42f4ad07444c25b4b50a539aefdd83a5b5d1
 
 RUN curl -o tao.zip -SL http://releases.taotesting.com/TAO_${TAO_VERSION}.zip \
   && echo "$TAO_SHA1 *tao.zip" | sha1sum -c - \
