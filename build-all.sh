@@ -1,8 +1,6 @@
 #!/bin/bash
 
-# declare -a VERSIONS=(31RC7 32RC2 32RC2-php56 32RC2-php70 32RC2-php71 32RC2-php72)
-
-declare -a VERSIONS=(32RC2-php56)
+declare -a VERSIONS=(32RC2-php56 32RC2-php70 32RC2-php71 32RC2-php72 32RC2-php73)
 
 for TAOVER in ${VERSIONS}
 do

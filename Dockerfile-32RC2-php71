@@ -51,6 +51,7 @@ RUN curl -o tao.zip -SL http://releases.taotesting.com/TAO_${TAO_VERSION}.zip \
   && chown -R www-data:www-data /usr/src/tao
 
 COPY docker-entrypoint.sh /entrypoint.sh
+COPY php.ini /usr/local/etc/php/
 
 ENTRYPOINT ["/entrypoint.sh"]
 
